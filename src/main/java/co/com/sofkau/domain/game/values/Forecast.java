@@ -5,8 +5,8 @@ import co.com.sofka.domain.generic.ValueObject;
 import java.util.Objects;
 
 public class Forecast implements ValueObject<Forecast.Values> {
-    private final Integer numberTimes;
-    private final Integer faceDice;
+    private Integer numberTimes =0 ;
+    private Integer faceDice= 0;
 
 
     public Forecast(Integer numberTimes, Integer faceDice) {
