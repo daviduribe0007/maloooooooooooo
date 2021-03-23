@@ -22,6 +22,9 @@ public class Forecast implements ValueObject<Forecast.Values> {
 
     }
 
+    public Forecast() {
+    }
+
     @Override
     public Values value() {
         return new Values() {

@@ -1,28 +1,23 @@
-package co.com.sofkau.domain.round.events;
+package co.com.sofkau.domain.round;
 
-import co.com.sofka.domain.generic.DomainEvent;
-import co.com.sofkau.domain.game.values.Person;
 import co.com.sofkau.domain.round.values.DiceFace;
-import co.com.sofkau.domain.round.values.StatePlayer;
 
 import java.util.List;
-import java.util.Map;
 
-public class ForeCastCompared extends DomainEvent {
-
+public class ForeCastComparedMethod {
     private final Integer numberTimes;
     private final Integer diceFace;
     private final List<DiceFace> diceFaceList;
     private final Integer countStage;
 
+    public ForeCastComparedMethod( Integer numberTimes, Integer diceFace, List<DiceFace> diceFaceList, Integer countStage) {
 
-    public ForeCastCompared(Person person, Integer numberTimes, Integer diceFace, List<DiceFace> diceFaceList, Integer countStage) {
-        super("ddd-game.round.forecastcompare");
         this.numberTimes = numberTimes;
         this.diceFace = diceFace;
         this.diceFaceList = diceFaceList;
         this.countStage = countStage;
     }
+
 
     public boolean compared() {
         Integer contador = 0;
@@ -64,6 +59,7 @@ public class ForeCastCompared extends DomainEvent {
         }
         return contador;
     }
+
 
 
 }

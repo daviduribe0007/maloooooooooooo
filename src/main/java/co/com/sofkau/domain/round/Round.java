@@ -11,11 +11,9 @@ import co.com.sofkau.domain.round.events.FirstStageStarted;
 import co.com.sofkau.domain.round.events.ForeCastCompared;
 import co.com.sofkau.domain.round.events.RolledDice;
 import co.com.sofkau.domain.round.events.RoundStarted;
-import co.com.sofkau.domain.round.values.DiceFace;
-import co.com.sofkau.domain.round.values.DiceId;
-import co.com.sofkau.domain.round.values.Pot;
-import co.com.sofkau.domain.round.values.StageId;
+import co.com.sofkau.domain.round.values.*;
 
+import javax.swing.plaf.nimbus.State;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,6 +26,10 @@ public class Round extends AggregateEvent<RoundId> {
     protected Map<DiceId, Dice> dices;
     protected Integer countStage;
     protected Pot pot;
+    protected Forecast forecast;
+    protected List<DiceFace> diceValues;
+    protected Person person;
+    protected Map<Person, StatePlayer> states;
 
     public Round(RoundId entityId) {
         super(entityId);
@@ -65,9 +67,16 @@ public class Round extends AggregateEvent<RoundId> {
     public void compareForecast(Forecast forecast, List<DiceFace> diceValues){
         var  numberTimes = forecast.value().numberTimes();
         var diceface = forecast.value().faceDice();
-        var foreCastCompared = new ForeCastCompared(numberTimes,diceface,diceValues,countStage);
-        appendChange( ).apply();
+        var compare = new ForeCastCompared(person,numberTimes,diceface,diceValues,countStage);
+        var personState = compare.compared();
+        StatePlayer statePlayer = new StatePlayer( personState);
+        if (personState){
+            states.put(person,statePlayer);
+        }
+        appendChange(compare).apply();
     }
+
+
 
 
 

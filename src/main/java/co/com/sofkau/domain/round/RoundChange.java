@@ -2,6 +2,7 @@ package co.com.sofkau.domain.round;
 
 import co.com.sofka.domain.generic.EventChange;
 import co.com.sofkau.domain.game.events.RoundCreated;
+import co.com.sofkau.domain.round.events.ForeCastCompared;
 import co.com.sofkau.domain.round.events.RolledDice;
 import co.com.sofkau.domain.round.events.RoundStarted;
 import co.com.sofkau.domain.round.values.DiceId;
@@ -29,6 +30,9 @@ public class RoundChange extends EventChange {
             }
         });
 
+
+
         apply((RolledDice event) -> round.dices.values().forEach(Dice::rollDice));
+        apply((ForeCastCompared event) -> round.compareForecast(round.forecast, round.diceValues));
     }
 }
